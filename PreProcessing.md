@@ -76,6 +76,8 @@ In order for the second script to run, the files to be saved need to be selected
 
 ### 4. Python script
 
+This Python script can be used to extract prompts from a text file containing a list of prompts with labels.
+
 ```
 promptList = []
 
@@ -96,3 +98,7 @@ for element in promptList:
 	promptTranscriptFile.close()
 	i += 1
 ```
+
+### 5. Final steps
+
+The previous sections described the creation of sets of .wav and .txt files necessary as inputs for MaryTTS voicebuilding. Once they are ready, they should be copied to the voicebuilding folder into their respective folders. Note that the names of .wav and .txt files have to match in order for the files to be matched properly.
