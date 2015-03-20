@@ -27,11 +27,7 @@ where ``<input file>`` refers to the original voice sound file, and ``<output fi
 
 An easy way of extracting sound files containing individual prompts from a single sound file is automatizing the process by using a script written in e.g. Praat. In order to be able to do this, it is necessary to have a set of boundaries determining the beginning and endpoint of the interval containing each individual prompt.
 
-In case there is a channel containing the recording of prompt-separating beeps, this could be converted to a .TextGrid file with `Praat's Annotate > To TextGrid(silences)...` option that can be accessed from the object window.
-
-// Add explanation of how to label silences and how to label rest (i do not remember options by hand).
-
-// Picture of accessing this option in Praat?
+In case there is a channel containing the recording of prompt-separating beeps, this could be converted to a .TextGrid file with Praat's `Annotate > To TextGrid(silences)...` option that can be accessed from the object window. Each beep should be labeled as a silence, and the area between them (esentially the areas containing the prompts) should be labelled as sound.
 
 To open `TextGrid` and `Sound files` together in Praat:
 * open the files individually (`.wav` using `Open > Open long sound file` and `TextGrid` using `Open > Read from file`)
@@ -75,4 +71,28 @@ for s to ns
   select snd_'s'
   Save as WAV file... sound_'s'.wav
 endfor
+```
+In order for the second script to run, the files to be saved need to be selected in Praat's object window.
+
+### 4. Python script
+
+```
+promptList = []
+
+# reading in individual prompts
+with open("<original prompt file>") as promptFile:
+    for line in promptFile:
+        line = line.strip('\n')
+        line = line.strip()
+        # stripping the label, number, and quotation marks from the prompt
+        line = line[11:-2]
+        promptList.append(line)
+
+# saving individual prompts as files
+i = 1
+for element in promptList:
+	promptTranscriptFile = open(("sound_" + str(i) + ".txt"), 'a')
+	promptTranscriptFile.write(element)
+	promptTranscriptFile.close()
+	i += 1
 ```
